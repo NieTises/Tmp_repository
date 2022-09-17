@@ -10,7 +10,6 @@
 // ==/UserScript==
 
 
-// @version:    0.3
 (function() {
     'use strict';
     window.onload=function(){
