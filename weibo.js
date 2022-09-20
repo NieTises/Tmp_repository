@@ -1,3 +1,14 @@
+// ==UserScript==
+// @name         weibo
+// @namespace    http://tampermonkey.net/
+// @version      0.1
+// @description  try to take over the world!
+// @author       Nietises
+// @match        https://weibo.com/
+// @icon         https://www.google.com/s2/favicons?sz=64&domain=weibo.com
+// @grant        none
+// ==/UserScript==
+
 (function() {
     'use strict';
     window.onload = function(){
@@ -32,7 +43,7 @@
                     var target2 = document.getElementsByClassName('head-info_authtag_29zK2')[0].parentNode.parentNode.parentNode.parentNode.parentNode.parentNode.parentNode.parentNode
                     console.log("AD");
                     console.log(target2);
-                    block() // 大部分广告低俗弱智,意义不明且反复出现,故屏蔽之,若怕误伤可定期到个人中心屏蔽列表检查
+                    block() // 大部分广告低俗弱智,意义不明且反复出现,故屏蔽之
                     target2.remove()
                 }
             }
