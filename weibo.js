@@ -12,7 +12,7 @@
 (function() {
     'use strict';
     window.onload = function(){
-        // 开关
+        // 开关,如果不想启用的把ture改成false
         var isHot = true    // 屏蔽热门推荐
         var isBlock = true  // 启用拉黑功能
 
