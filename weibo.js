@@ -13,8 +13,8 @@
     'use strict';
     window.onload = function(){
         // 开关,如果不想启用的把ture改成false
-        var isHot = true    // 屏蔽热门推荐
-        var isBlock = true  // 启用拉黑功能
+        var isHot = true; // 屏蔽热门推荐
+        var isBlock = true; // 启用屏蔽用户功能
 
 
         // top广告
@@ -32,20 +32,22 @@
             if(isHot){
                 if(document.getElementsByClassName('wbpro-auth-tag head-info_authtag_29zK2').length !== 0 ){ //热推
                     var target = document.getElementsByClassName('wbpro-auth-tag head-info_authtag_29zK2')[0].parentNode.parentNode.parentNode.parentNode.parentNode.parentNode.parentNode.parentNode
-                    console.log("热推");
-                    console.log(toString(target));
-                    // block() // 热推偶尔会出现正在关注的博主,防止误伤,不启用屏蔽功能
+                    var id = document.getElementsByClassName("wbpro-auth-tag head-info_authtag_29zK2")[0].parentElement.parentElement.parentElement.parentElement.childNodes[0].href.replace("https://weibo.com/u/",'');
+                    console.log("热推 uid:"+id);
+                    console.log(target.outerHTML.replace(/<[^>]*>/g, ''));
+                    // autoBlock() // 热推偶尔会出现正在关注的博主,防止误伤,不启用屏蔽功能
                     target.remove()
                 }
             }
-            if(isBlock){
-                if(document.getElementsByClassName('head-info_authtag_29zK2').length !== 0 ){ //广告
-                    var target2 = document.getElementsByClassName('head-info_authtag_29zK2')[0].parentNode.parentNode.parentNode.parentNode.parentNode.parentNode.parentNode.parentNode
-                    console.log("AD");
-                    console.log(toString(target2));
-                    block() // 大部分广告低俗弱智,意义不明且反复出现,故屏蔽之
-                    target2.remove()
-                }
+            
+            
+            if(document.getElementsByClassName('head-info_authtag_29zK2').length !== 0 ){ //广告
+                var target2 = document.getElementsByClassName('head-info_authtag_29zK2')[0].parentNode.parentNode.parentNode.parentNode.parentNode.parentNode.parentNode.parentNode
+                var id2 = document.getElementsByClassName("head-info_authtag_29zK2")[0].parentElement.parentElement.parentElement.parentElement.childNodes[0].href.replace("https://weibo.com/u/",'');
+                console.log("广告 uid:"+id2);
+                console.log(target2.outerHTML.replace(/<[^>]*>/g, ''));
+                autoBlock() // 大部分广告低俗弱智,意义不明且反复出现,故屏蔽之
+                target2.remove()
             }
             return
         }
@@ -53,7 +55,7 @@
 
         // 扩展(屏蔽功能)
         // 来自：https://github.com/overtrue/weibo-dogs-killer
-        function block(uid){
+        function autoBlock(uid){
             if(isBlock){
                 if(uid == undefined){
                     uid = document.getElementsByClassName("head-info_authtag_29zK2")[0].parentElement.parentElement.parentElement.parentElement.childNodes[0].href.replace("https://weibo.com/u/",'');
@@ -86,7 +88,7 @@
         }
 
 
-        // 启动定时器：移除信息流广告贴
+        // 开启定时器
         const f = setInterval(() => {
             ClearAD()
         }, 5000);
