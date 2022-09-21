@@ -33,7 +33,7 @@
                 if(document.getElementsByClassName('wbpro-auth-tag head-info_authtag_29zK2').length !== 0 ){ //热推
                     var target = document.getElementsByClassName('wbpro-auth-tag head-info_authtag_29zK2')[0].parentNode.parentNode.parentNode.parentNode.parentNode.parentNode.parentNode.parentNode
                     console.log("热推");
-                    console.log(target);
+                    console.log(toString(target));
                     // block() // 热推偶尔会出现正在关注的博主,防止误伤,不启用屏蔽功能
                     target.remove()
                 }
@@ -42,7 +42,7 @@
                 if(document.getElementsByClassName('head-info_authtag_29zK2').length !== 0 ){ //广告
                     var target2 = document.getElementsByClassName('head-info_authtag_29zK2')[0].parentNode.parentNode.parentNode.parentNode.parentNode.parentNode.parentNode.parentNode
                     console.log("AD");
-                    console.log(target2);
+                    console.log(toString(target2));
                     block() // 大部分广告低俗弱智,意义不明且反复出现,故屏蔽之
                     target2.remove()
                 }
@@ -53,9 +53,11 @@
 
         // 扩展(屏蔽功能)
         // 来自：https://github.com/overtrue/weibo-dogs-killer
-        function block(){
+        function block(uid){
             if(isBlock){
-                var uid = document.getElementsByClassName("head-info_authtag_29zK2")[0].parentElement.parentElement.parentElement.parentElement.childNodes[0].href.replace("https://weibo.com/u/",'')
+                if(uid == undefined){
+                    uid = document.getElementsByClassName("head-info_authtag_29zK2")[0].parentElement.parentElement.parentElement.parentElement.childNodes[0].href.replace("https://weibo.com/u/",'');
+                }
                 var http = new XMLHttpRequest()
                 var url = 'https://weibo.com/aj/filter/block?ajwvr=6'
                 http.open('POST', url, true)
