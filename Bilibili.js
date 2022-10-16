@@ -26,7 +26,8 @@
 
         function rm(){
             tmpArry[6].remove();
-            if(tmpArry[6]){
+            delete tmpArry[6];tmpArry[6]=null
+            if(tmpArry[6] != undefined){
                 tmpArry[6].remove();
             }
         }
