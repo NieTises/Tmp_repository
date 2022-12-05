@@ -9,6 +9,7 @@
 // @grant        none
 // ==/UserScript==
 
+// 移除视频页侧边栏和直播广告
 (function () {
     "use strict";
     window.onload = function () {
