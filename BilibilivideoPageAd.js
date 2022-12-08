@@ -9,13 +9,26 @@
 // @grant        none
 // ==/UserScript==
 
-// 移除视频页侧边栏和直播广告
+// ==快速查找元素工具==================================================================
+function el(e) {
+    let a = document.querySelectorAll(e);
+    if (a.length == 0) {
+        return 0;
+    }
+    if (a.length == 1) {
+        return a[0];
+    } else {
+        return a;
+    }
+}
+
 (function () {
     "use strict";
+    // 移除视频页侧边栏和直播广告
     window.onload = function () {
         // Timeout
         let i = 0;
-        function check() {
+        function 防超时() {
             i++;
             if (i > 25) {
                 console.log("No Ad");
@@ -28,17 +41,21 @@
 
         // Ad
         const f = setInterval(() => {
-            check();
+            防超时();
             rmAd();
         }, 10);
 
         //rmAd
         function rmAd() {
-            var vcd = document.getElementsByClassName("vcd")[0];
-            if (vcd == null || vcd == undefined) { return }
+            var vcd = el(".vcd");
+            var sideAd = el(".side_ad")
+            if (!vcd) { return }
             try {
                 console.log("vcd:", vcd);
+                console.log("sideAd:", sideAd);
                 vcd.remove();
+                sideAd.remove();
+
                 rmInterval();
             } catch (e) {
                 console.log(`Error:${e.name}\t${e.message}`);
@@ -47,8 +64,8 @@
 
         // Live
         function rmLive() {
-            let live = document.getElementById("live_recommand_report")
-            if (live != null || live != undefined) {
+            let live = el("#live_recommand_report")
+            if (live) {
                 console.log(live.outerHTML.replace(/<[^>]*>/g, '') + live);
                 live.remove()
                 rmListener();
@@ -58,8 +75,8 @@
 
         // right-bottom-banner
         function rmBanner() {
-            let banner = document.getElementById("right-bottom-banner")
-            if (banner != null || banner != undefined) {
+            let banner = el("#right-bottom-banner")
+            if (banner) {
                 console.log(banner.outerHTML.replace(/<[^>]*>/g, '') + banner);
                 banner.remove()
                 rmListener();
@@ -88,33 +105,5 @@
         window.onscroll = function () {
             scroll();
         }
-
-        // rec-list
-        // setTimeout(() => {
-        //     var rec = document.getElementsByClassName("rec-list")[0].childNodes
-        //     if(rec.length >= 10){
-        //         if (rec[0].className = "video-page-special-card-small") {
-        //             rec[0].remove();
-        //         }
-        //     }
-        // }, 5000);
-
-        // This code for to fix a bug, but I'm so mad that don't know how to resolve
-        // setTimeout(() => {
-        //     document.getElementsByClassName("vcd")[0].remove()
-        // }, 100);
-        // setTimeout(() => {
-        //     document.getElementsByClassName("vcd")[0].remove()
-        // }, 200);
-        // setTimeout(() => {
-        //     document.getElementsByClassName("vcd")[0].remove()
-        // }, 300);
-        // setTimeout(() => {
-        //     document.getElementsByClassName("vcd")[0].remove()
-        // }, 400);
-        // setTimeout(() => {
-        //     document.getElementsByClassName("vcd")[0].remove()
-        // }, 500);
     };
-
-})();
+})
