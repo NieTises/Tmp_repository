@@ -1,5 +1,5 @@
 // ==UserScript==
-// @name         Hide Ad
+// @name         Bilibil动态页
 // @namespace    http://tampermonkey.net/
 // @version      0.1
 // @description  try to take over the world!
@@ -32,7 +32,7 @@ function main() {
         var ad = el(".bili-dyn-ads")
         var topic = el(".topic-panel").parentNode
 
-        if (topic && ad) {
+        if (topic || ad) {
             console.log("time:" + ms);
 
             console.log("ad", ad);
